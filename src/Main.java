@@ -63,7 +63,7 @@ public class Main {
         executor.scheduleAtFixedRate(task, initialDelay, period.toMillis(), java.util.concurrent.TimeUnit.MILLISECONDS);
 
         // Sleep to keep the main thread alive (adjust as needed)
-        Thread.sleep(periodTime * 5);
+        Thread.sleep(periodTime * 1000000);
 
         // Shutdown the executor
         executor.shutdown();
@@ -96,20 +96,17 @@ public class Main {
         LocalDateTime now = LocalDateTime.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
         long totalTime = receiveTime - sendTime;
-
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(logFilePath, true))) {
+            writer.write("Bitch " +"\n");
             if (totalTime > 3000) {
                 writer.write("Total Time: " + totalTime + "****************************************************" + "\n");
-            } else {
-                writer.write("Total Time: " + totalTime + "\n");
-            }
-            writer.write("Send Time: " + sendTime + "\n");
-            writer.write("Received Time: " + receiveTime + "\n");
-            writer.write("Response Time: " + now.format(formatter) + "\n");
-            writer.write("Status Code: " + response.statusCode() + "\n");
-            writer.write("Response Body: " + response.body() + "\n");
-            writer.write("------------------------------\n");
-        } catch (IOException e) {
+                writer.write("Send Time: " + sendTime + "\n");
+                writer.write("Received Time: " + receiveTime + "\n");
+                writer.write("Response Time: " + now.format(formatter) + "\n");
+                writer.write("Status Code: " + response.statusCode() + "\n");
+                writer.write("Response Body: " + response.body() + "\n");
+                writer.write("------------------------------\n");}
+             } catch (IOException e) {
             e.printStackTrace();
         }
     }
